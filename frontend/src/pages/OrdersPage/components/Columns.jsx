@@ -27,19 +27,11 @@ export const Columns = (deleteOrderHandler) => [
     enableHiding: false,
   },
   {
-    accessorKey: "products",
+    accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Order products" />
+      <DataTableColumnHeader column={column} title="Order ID" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[160px]">
-        {row.original.products.map((product) => (
-          <div key={product.id}>
-            <p>{product.product_name}</p>
-          </div>
-        ))}
-      </div>
-    ),
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
     enableSorting: false,
     enableHiding: false,
   },
@@ -57,6 +49,23 @@ export const Columns = (deleteOrderHandler) => [
         </div>
       );
     },
+  },
+  {
+    accessorKey: "products",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Order products" />
+    ),
+    cell: ({ row }) => (
+      <div className="w-[160px]">
+        {row.original.products.map((product) => (
+          <div key={product.id}>
+            <p>{product.product_name}</p>
+          </div>
+        ))}
+      </div>
+    ),
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorKey: "prices",
