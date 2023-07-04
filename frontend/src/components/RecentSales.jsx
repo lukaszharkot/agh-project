@@ -8,14 +8,23 @@ import {
 
   export function RecentSales() { 
       const [order, setOrder] = useState([]);
+      const [sumList, setSumList] = useState([]);
+      
       useEffect(() => {
-        fetchOrders().then(setOrder)
+        fetchOrders().then((data) => {
+          setOrder(data);
+          const sums = data.map((order) =>
+            order.products.reduce((total, product) => total + product.price, 0)
+          );
+          setSumList(sums);
+        });
       },[]);
-    
+
       useEffect(() => {
-        console.log(order)
-      },[order]);
-    
+        console.log(order);
+        console.log(sumList);
+      }, [order, sumList]);
+
     if (order.length > 0){
       return (
         <div className="space-y-8">
@@ -28,7 +37,7 @@ import {
               <p className="text-sm font-medium leading-none">{order[order.length - 1]?.name} {order[order.length - 1]?.surname}</p>
               <p className="text-sm text-muted-foreground">{order[order.length - 1]?.buyer}</p>
             </div>
-            <div className="ml-auto font-medium">+${order[order.length - 1]?.sum}</div>
+            <div className="ml-auto font-medium">+${sumList[sumList.length - 1]}</div>
           </div>
           {order.length > 1 && (
            <div className="flex items-center">
@@ -40,7 +49,7 @@ import {
               <p className="text-sm font-medium leading-none">{order[order.length - 2]?.name} {order[order.length - 2]?.surname}</p>
               <p className="text-sm text-muted-foreground">{order[order.length - 2]?.buyer}</p>
             </div>
-            <div className="ml-auto font-medium">+${order[order.length - 2]?.sum}</div>
+            <div className="ml-auto font-medium">+${sumList[sumList.length - 2]}</div>
           </div>
           )}
           {order.length > 2 && (
@@ -53,7 +62,7 @@ import {
               <p className="text-sm font-medium leading-none">{order[order.length - 3]?.name} {order[order.length - 3]?.surname}</p>
               <p className="text-sm text-muted-foreground">{order[order.length - 3]?.buyer}</p>
             </div>
-            <div className="ml-auto font-medium">+${order[order.length - 3]?.sum}</div>
+            <div className="ml-auto font-medium">+${sumList[sumList.length - 3]}</div>
           </div>
           )}
           {order.length > 3 && (
@@ -66,7 +75,7 @@ import {
               <p className="text-sm font-medium leading-none">{order[order.length - 4]?.name} {order[order.length - 4]?.surname}</p>
               <p className="text-sm text-muted-foreground">{order[order.length - 4]?.buyer}</p>
             </div>
-            <div className="ml-auto font-medium">+${order[order.length - 4]?.sum}</div>
+            <div className="ml-auto font-medium">+${sumList[sumList.length - 4]}</div>
           </div>
           )}
           {order.length > 4 && (
@@ -79,7 +88,7 @@ import {
               <p className="text-sm font-medium leading-none">{order[order.length - 5]?.name} {order[order.length - 5]?.surname}</p>
               <p className="text-sm text-muted-foreground">{order[order.length - 5]?.buyer}</p>
             </div>
-            <div className="ml-auto font-medium">+${order[order.length - 5]?.sum}</div>
+            <div className="ml-auto font-medium">+${sumList[sumList.length - 5]}</div>
           </div>
           )}
         </div>

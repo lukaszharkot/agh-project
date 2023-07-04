@@ -5,6 +5,7 @@ import { UserNav } from "./ProductsPage/components/UserNav";
 import { useToast } from "@/components/ui/use-toast"
 import { createProduct } from "@/config/methods";
 import { Toaster } from '@/components/ui/Toaster';
+import TeamSwitcher from "@/components/TeamSwitcher";
 
 export const AddProductPage = () => {
   const { toast } = useToast();
@@ -24,6 +25,7 @@ export const AddProductPage = () => {
     <div className="hidden flex-col md:flex">
       <div className="border-b">
         <div className="flex h-16 items-center px-4">
+          <TeamSwitcher />
           <MainNav className="mx-6" links={navigationLinks} />
           <div className="ml-auto flex items-center space-x-4">
             <UserNav />

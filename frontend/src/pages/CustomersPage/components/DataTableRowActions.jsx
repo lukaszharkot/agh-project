@@ -14,8 +14,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu"; 
 
-export function DataTableRowActions({ row, onDeleteCustomer }) {
+export function DataTableRowActions({ row, onDeleteCustomer, changeEditMode }) {
   const [data, setData] = useState([]);
+  // const [isEditMode, setIsEditMode] = useState(false);
 
   useEffect(() => {
     fetchCustomers().then(setData)
@@ -24,6 +25,11 @@ export function DataTableRowActions({ row, onDeleteCustomer }) {
   const deleteCustomerHandler = () => {
     onDeleteCustomer(data[row.id].id);
   };
+
+  const handleEditClick = (row) => {
+    changeEditMode(row.id);
+  };
+
   
   return (
     <DropdownMenu>
@@ -35,14 +41,14 @@ export function DataTableRowActions({ row, onDeleteCustomer }) {
           <MoreHorizontal className="h-4 w-4" />
           <span className="sr-only">Open menu</span>
         </Button>
-      </DropdownMenuTrigger>
+      </DropdownMenuTrigger >
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleEditClick(row)}>
           <Pen className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           Edit
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => deleteCustomerHandler()}>
+        <DropdownMenuItem onClick={deleteCustomerHandler}>
           <Trash className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           Delete
           <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>

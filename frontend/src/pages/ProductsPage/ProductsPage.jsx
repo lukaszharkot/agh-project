@@ -5,9 +5,10 @@ import { Columns } from "./components/Columns";
 import { UserNav } from "./components/UserNav";
 import { navigationLinks } from "../../config/navigationLinks";
 import React, { useState, useEffect } from 'react';
-import { fetchProducts, deleteProduct } from "@/config/methods";
+import { fetchProducts, deleteProduct, editProduct } from "@/config/methods";
 import { Toaster } from '@/components/ui/Toaster';
 import { useToast } from "@/components/ui/use-toast"
+import TeamSwitcher from "@/components/TeamSwitcher";
 
 
 export const ProductsPage = () => {
@@ -24,7 +25,6 @@ export const ProductsPage = () => {
       .then(() => {
         fetchProducts().then(setData);
         toast({
-          id: 1,
           title: "Product deleted.",
           description: "We've deleted a product for you.",
           duration: 3000,
@@ -32,11 +32,31 @@ export const ProductsPage = () => {
       })
       .catch(() => {
         toast({
-          id: 2,
           title: "Error deleting product.",
           description: "An error occurred while deleting the product.",
           duration: 3000,
         });
+      });
+  };
+
+  const editProductHandler = (productId, updatedData) => {
+    editProduct(productId, updatedData)
+      .then(() => {
+        fetchProducts().then(setData);
+        toast({
+          title: "Product updated.",
+          description: "We've updated the product information.",
+          duration: 3000,
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: "Error updating product.",
+          description: "An error occurred while updating the product information.",
+          duration: 3000,
+          status: "error",
+        });
+        console.error("Error updating product:", error);
       });
   };
 
@@ -48,6 +68,7 @@ export const ProductsPage = () => {
     <div className="hidden flex-col md:flex">
       <div className="border-b">
         <div className="flex h-16 items-center px-4">
+          <TeamSwitcher />
           <MainNav className="mx-6" links={navigationLinks} />
           <div className="ml-auto flex items-center space-x-4">
             <UserNav />
@@ -69,7 +90,7 @@ export const ProductsPage = () => {
             //     phoneNumber: "000-000-000",
             //   },
             // ]}
-            columns={Columns(deleteProductHandler)}
+            columns={Columns(deleteProductHandler, editProductHandler)}
           />
           <Toaster />
         </div>

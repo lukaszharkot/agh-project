@@ -7,7 +7,7 @@ export function DataTableToolbar({ table }) {
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-          placeholder="Filter products..."
+          placeholder="Filter products by product name..."
           value={table.getColumn("product_name")?.getFilterValue() ?? ""}
           onChange={(event) =>
             table.getColumn("product_name")?.setFilterValue(event.target.value)
@@ -17,7 +17,7 @@ export function DataTableToolbar({ table }) {
       </div>
       <div className="flex items-center space-x-2">
         <DataTableViewOptions table={table} />
-        <a href="/add-product">Add Product +</a>
+        <a style={{color:"green", border:"green 1px solid", padding:"2px", borderRadius:"7px"}} href="/add-product">Add Product +</a>
       </div>
     </div>
   );

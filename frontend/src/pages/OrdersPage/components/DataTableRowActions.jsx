@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
 
-export function DataTableRowActions({ row, onDeleteOrder }) {
+export function DataTableRowActions({ row, onDeleteOrder, changeEditMode }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,11 @@ export function DataTableRowActions({ row, onDeleteOrder }) {
   const deleteOrderHandler = () => {
     onDeleteOrder(data[row.id].id);
   };
-  
+
+  const handleEditClick = (row) => {
+    changeEditMode(row.id);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,7 +41,7 @@ export function DataTableRowActions({ row, onDeleteOrder }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleEditClick(row)}>
           <Pen className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           Edit
         </DropdownMenuItem>

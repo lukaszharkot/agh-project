@@ -17,7 +17,7 @@ export function DataTableToolbar({ table }) {
       </div>
       <div className="flex items-center space-x-2">
         <DataTableViewOptions table={table} />
-        <a href="/add-order">Add Order +</a>
+        <a style={{color:"green", border:"green 1px solid", padding:"2px", borderRadius:"7px"}} href="/add-order">Add Order +</a>
       </div>
     </div>
   );
