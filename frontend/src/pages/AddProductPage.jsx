@@ -1,5 +1,5 @@
 import { MainNav } from "@/components/MainNav";
-import { AddProductForm } from "@/components/AddProductForm";
+import { AddProductForm } from "@/pages/ProductsPage/components/AddProductForm";
 import { navigationLinks } from "../config/navigationLinks";
 import { UserNav } from "./ProductsPage/components/UserNav";
 import { useToast } from "@/components/ui/use-toast"
